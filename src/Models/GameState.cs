@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Nancy.Simple.Models
+﻿namespace Nancy.Simple.Models
 {
-	class GameState
+	public class GameState
 	{
 		public Player[] players { get; set; }
 		public string tournament_id { get; set; }
