@@ -28,7 +28,7 @@ namespace Nancy.Simple
 				case 0:
 				case 1:
 				case 2:
-					return state.minimum_raise;
+					return _state.minimum_raise;
 				case 3:
 					return SelectBetFor3Cards(cards);
 				case 4:
