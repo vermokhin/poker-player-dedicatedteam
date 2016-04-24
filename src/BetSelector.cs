@@ -30,11 +30,11 @@ namespace Nancy.Simple
 				case 2:
 					return GetCallBet(_player.stack, _state.current_buy_in, _player.bet);
 				case 3:
-					return SelectBetFor3Cards(cards);
+					return 10 * SelectBetFor3Cards(cards);
 				case 4:
-					return SelectBetFor4Cards(cards);
+					return 10 * SelectBetFor4Cards(cards);
 				case 5:
-					return SelectBetFor5Cards(cards);
+					return 10 * SelectBetFor5Cards(cards);
 			}
 
 			return 0;
@@ -49,7 +49,6 @@ namespace Nancy.Simple
 			}
 
 			var pairFinder = new PairFinder();
-			//update to  call for < 0.5
 			return pairFinder.GetPairPower(cards) > 0.5 ? (int)(pairFinder.GetPairPower(cards) * 2 * _state.current_buy_in) : 0;
 		}
 
