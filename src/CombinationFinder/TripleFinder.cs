@@ -1,16 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using Nancy.Simple.Models;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Nancy.Simple.CombinationFinder
 {
 	class TripleFinder
 	{
-	    double GetTriple(IEnumerable<int> ranks)
+	    public double GetTriple(Card[] cards)
 	    {
-	        var triple = ranks.GroupBy(r => r).FirstOrDefault(g => g.Count() == 3);
+	        var triple = cards.GroupBy(c=>c.RankValue.RankId).FirstOrDefault(g => g.Count() == 3);
 	        if (triple != null)
 	        {
-	            return 0.1 * triple.First();
+	            return 0.1 * triple.Key;
 	        }
 	        return 0;
 	    }

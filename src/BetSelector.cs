@@ -42,7 +42,14 @@ namespace Nancy.Simple
 
 		public int SelectBetFor3Cards(Card[] cards)
 		{
+			var triple = new TripleFinder().GetTriple(cards);
+			if (triple > 0)
+			{
+				return (int)(2 * triple * _state.current_buy_in);
+			}
+
 			var pairFinder = new PairFinder();
+			//update to  call for < 0.5
 			return pairFinder.GetPairPower(cards) > 0.5 ? (int)(pairFinder.GetPairPower(cards) * 2 * _state.current_buy_in) : 0;
 		}
 
