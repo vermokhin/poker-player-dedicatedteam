@@ -26,7 +26,7 @@ namespace Nancy.Simple
 					var rankArray = GetRankArray(sortedCards);
 					var suiteArray = GetSiuteArray(sortedCards);
 					var suiteCount = GetSiuteCount(sortedCards);
-					GetBetFor5Cards(suiteCount, rankArray, suiteArray);
+					GetBetFor5Cards(player, suiteCount, rankArray, suiteArray);
 					//use rank api
 				}
 				
@@ -91,8 +91,12 @@ namespace Nancy.Simple
 			return result;
 		}
 
-		public int GetBetFor5Cards(Dictionary<string, int> SuiteCardsCount, string[] RankArray, string[] SuiteArray)
+		public int GetBetFor5Cards(Player player, Dictionary<string, int> SuiteCardsCount, string[] RankArray, string[] SuiteArray)
 		{
+			if(RankArray.Distinct().Count() == 3)
+			{
+				return player.stack;
+			}
 			return 200;
 		}
 
