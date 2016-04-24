@@ -22,6 +22,11 @@ namespace Nancy.Simple
 			{
 				if (cards.Count() == 5)
 				{
+					var sortedCards = GetSortedCard(cards);
+					var rankArray = GetRankArray(sortedCards);
+					var suiteArray = GetSiuteArray(sortedCards);
+					var suiteCount = GetSiuteCount(sortedCards);
+					GetBetFor5Cards(suiteCount, rankArray, suiteArray);
 					//use rank api
 				}
 				
@@ -51,7 +56,7 @@ namespace Nancy.Simple
 			SameSuit = 1,
 		}
 
-		public Card[] GetSortedCard(Card[] cards)
+		public Card[] GetSortedCard(IEnumerable<Card> cards)
 		{
 			return cards.OrderBy(c => c.rank).ToArray();
 		}
@@ -64,6 +69,31 @@ namespace Nancy.Simple
 		public string[] GetSiuteArray(Card[] cards)
 		{
 			return cards.Select(c => c.suit).ToArray();
+		}
+
+		public Dictionary<string, int> GetSiuteCount(Card[] cards)
+		{
+			var result = new Dictionary<string, int>();
+			foreach(var card in cards)
+			{
+				if (result.ContainsKey(card.suit))
+				{
+					var value = 0;
+					result.TryGetValue(card.suit, out value);
+					result[card.suit] = value++;
+				}
+				else
+				{
+					result.Add(card.suit, 1);
+				}
+			}
+
+			return result;
+		}
+
+		public int GetBetFor5Cards(Dictionary<string, int> SuiteCardsCount, string[] RankArray, string[] SuiteArray)
+		{
+			return 200;
 		}
 	}
 }
