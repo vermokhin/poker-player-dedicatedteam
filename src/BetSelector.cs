@@ -1,4 +1,5 @@
-﻿using Nancy.Simple.Models;
+﻿using Nancy.Simple.CombinationFinder;
+using Nancy.Simple.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,20 +37,8 @@ namespace Nancy.Simple
 
 		public int SelectBetFor3Cards(Card[] cards)
 		{
-			// 1 pair
-			var distCards = cards.Select(c => c.RankValue).Distinct();
-			var groups = distCards.GroupBy(d => d.RankId);
-			if (groups.Count() > 1)
-			{
-				foreach(var group in groups)
-				{
-					if (group.Count() > 1)
-					{
-						return _state.current_buy_in * 2;
-					}
-				}
-			}
-			return 0;
+			var pairFinder = new PairFinder();
+			return pairFinder.GetPairPower(cards) > 0.5 ? (int)(pairFinder.GetPairPower(cards) * 2 * _state.current_buy_in) : 0;
 		}
 
 		public int SelectBetFor4Cards(Card[] cards)
