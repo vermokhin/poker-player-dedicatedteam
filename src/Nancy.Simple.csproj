@@ -71,6 +71,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BetSelector.cs" />
+    <Compile Include="CombinationFinder\PairFinder.cs" />
+    <Compile Include="CombinationFinder\SquareFinder.cs" />
+    <Compile Include="CombinationFinder\TripleFinder.cs" />
     <Compile Include="MainModule.cs" />
     <Compile Include="App.cs" />
     <Compile Include="MainStrategy.cs" />
