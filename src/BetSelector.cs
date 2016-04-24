@@ -28,9 +28,16 @@ namespace Nancy.Simple
 				case 0:
 				case 1:
 				case 2:
-					return GetCallBet(_player.stack, _state.current_buy_in, _player.bet);
-				case 3:
-					return 10 * SelectBetFor3Cards(cards);
+			    {
+			        var distinctRanks = cards.Select(c => c.rank).Distinct();
+			        if (distinctRanks.Count() > 4)
+			        {
+			            return 0;
+			        }
+			        return GetCallBet(_state.current_buy_in, _player.bet);
+			    }
+			    case 3:
+					return SelectBetFor3Cards(cards);
 				case 4:
 					return 10 * SelectBetFor4Cards(cards);
 				case 5:
@@ -75,13 +82,9 @@ namespace Nancy.Simple
 			return SelectBetFor4Cards(cards);
 		}
 
-        int GetCallBet(int stack, int currentBet, int ourBet)
+        int GetCallBet(int currentBet, int ourBet)
         {
             var needToAdd = currentBet > ourBet ? currentBet - ourBet : 0;
-            if (stack - needToAdd < 300)
-            {
-                return 0;
-            }
             return needToAdd;
         }
     }
