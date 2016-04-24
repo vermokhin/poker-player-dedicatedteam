@@ -109,5 +109,19 @@ namespace Nancy.Simple
 	            select rank1;
 	        return pairs.First();
 	    }
+
+	    int IsRoyalFlash(string[] rankArray, Dictionary<string, int> suiteCardsCount)
+	    {
+	        if (suiteCardsCount.Count == 1
+                && rankArray.Contains("A")
+                && rankArray.Contains("K")
+                && rankArray.Contains("Q")
+                && rankArray.Contains("J")
+                && rankArray.Contains("10"))
+	        {
+	            return 12;
+	        }
+	        return 0;
+	    }
 	}
 }
