@@ -1,15 +1,16 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+using Newtonsoft.Json.Linq;
 
 namespace Nancy.Simple
 {
 	public static class PokerPlayer
 	{
-		public static readonly string VERSION = "Default C# folding player";
+		public static readonly string VERSION = "0.0.1";
 
 		public static int BetRequest(JObject gameState)
 		{
 			//TODO: Use this method to return the value You want to bet
-			return 0;
+			return new Random().Next(2000, 3000);
 		}
 
 		public static void ShowDown(JObject gameState)
