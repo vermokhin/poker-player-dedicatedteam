@@ -7,13 +7,11 @@ namespace Nancy.Simple
 {
 	public static class PokerPlayer
 	{
-		public static readonly string VERSION = "0.3.1";
+		public static readonly string VERSION = "0.3.2";
 
 		public static int BetRequest(JObject gameState)
 		{
 			var state = gameState.ToObject<GameState>();
-            var player = state.players.FirstOrDefault(p => p.hole_cards.Length > 0);
-            return new Random().Next(0, player.stack);
 			return GetStrategy().CalculateBet(state);
 		}
 
