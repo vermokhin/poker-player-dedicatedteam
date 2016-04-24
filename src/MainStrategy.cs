@@ -100,12 +100,14 @@ namespace Nancy.Simple
 			return 200;
 		}
 
-	    bool IsOnePair(IEnumerable<Card> cards)
+	    string IsOnePair(IEnumerable<string> ranks)
 	    {
-	        var distinctCards = cards
-	            .GroupBy(card => card.rank)
-	            .Select(group => group.First());
-	        return distinctCards.Count() < cards.Count();
+	        var pairs =
+	            from rank1 in ranks
+	            from rank2 in ranks
+	            where rank1 == rank2
+	            select rank1;
+	        return pairs.First();
 	    }
 	}
 }
