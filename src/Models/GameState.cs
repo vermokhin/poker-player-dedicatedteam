@@ -12,7 +12,7 @@
 		public int dealer { get; set; }
 		public Card[] community_cards { get; set; }
 		public int current_buy_in { get; set; }
-	    public string minimum_raise { get;set; }
+	    public int minimum_raise { get;set; }
 		public int pot { get; set; }
 	}
 }
