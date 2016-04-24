@@ -97,6 +97,10 @@ namespace Nancy.Simple
             {
                 return player.stack;
             }
+		    if (IsQuad(RankArray) != "")
+		    {
+		        return player.stack;
+		    }
 			if(RankArray.Distinct().Count() == 3)
 			{
 				return player.stack;
@@ -127,5 +131,16 @@ namespace Nancy.Simple
 	        }
 	        return 0;
 	    }
-	}
+
+	    string IsQuad(IEnumerable<string> ranks)
+	    {
+	        var quad = ranks.GroupBy(r => r).FirstOrDefault(g => g.Count() >= 4);
+	        if (quad != null)
+	        {
+	            return quad.First();
+	        }
+	        return "";
+	    }
+
+    }
 }
