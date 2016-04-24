@@ -13,6 +13,7 @@ namespace Nancy.Simple
 		public int CalculateBet(GameState state)
 		{
 			var player = state.players.FirstOrDefault(p => p.hole_cards.Length > 0);
+
 			var cards = state.community_cards.Concat(player.hole_cards);
 
 			var doubleBet = state.current_buy_in * 2;
@@ -20,14 +21,9 @@ namespace Nancy.Simple
 			if (cards != null)
 			{
 				//get cards combination
-				var hand = cards.Select(c => c.rank).ToString().ToLower();
 				if(cards.Count() < 3)
 				{
-					if(state.current_buy_in > player.bet)
-					{
-						return state.current_buy_in - player.bet;
-					}
-					return 0;
+					return minRaiseBet;
 				}
 
 				//no pairs in cards
