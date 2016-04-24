@@ -50,7 +50,6 @@ namespace Nancy.Simple
 			Pair = 0,
 			SameSuit = 1,
 		}
-
 		public Card[] GetSortedCard(Card[] cards)
 		{
 			return cards.OrderBy(c => c.rank).ToArray();
@@ -65,5 +64,13 @@ namespace Nancy.Simple
 		{
 			return cards.Select(c => c.suit).ToArray();
 		}
+
+	    bool IsOnePair(IEnumerable<Card> cards)
+	    {
+	        var distinctCards = cards
+	            .GroupBy(card => card.rank)
+	            .Select(group => group.First());
+	        return distinctCards.Count() < cards.Count();
+	    }
 	}
 }
