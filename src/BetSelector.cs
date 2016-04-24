@@ -12,10 +12,15 @@ namespace Nancy.Simple
 
 		private GameState _state;
 
-		public int SelectBet(GameState state)
+	    public BetSelector(Player player, GameState state)
+	    {
+	        _player = player;
+	        _state = state;
+	    }
+
+	    public int SelectBet()
 		{
-			var player = state.players.FirstOrDefault(p => p.hole_cards.Length > 0);
-			var cards = state.community_cards.Concat(player.hole_cards).ToArray();
+			var cards = _state.community_cards.Concat(_player.hole_cards).ToArray();
 
 			switch (cards.Count())
 			{
