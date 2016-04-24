@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using Nancy.Simple.Models;
 using Newtonsoft.Json.Linq;
 
 namespace Nancy.Simple
@@ -9,11 +11,10 @@ namespace Nancy.Simple
 
 		public static int BetRequest(JObject gameState)
 		{
-			//TODO: Use this method to return the value You want to bet
-			return new Random().Next(200, 300);
+		    return 80;
 		}
 
-		public static void ShowDown(JObject gameState)
+        public static void ShowDown(JObject gameState)
 		{
 			//TODO: Use this method to showdown
 		}
