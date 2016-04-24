@@ -50,7 +50,7 @@ namespace Nancy.Simple
 
 			var pairFinder = new PairFinder();
 			//update to  call for < 0.5
-			return pairFinder.GetPairPower(cards) > 0.5 ? (int)(pairFinder.GetPairPower(cards) * 2 * _state.current_buy_in) : 0;
+			return pairFinder.GetPairPower(cards) > 0.5 ? (int)(pairFinder.GetPairPower(cards) * 2 * _state.current_buy_in) : GetCallBet(_player.stack, _state.current_buy_in, _player.bet);;
 		}
 
 		public int SelectBetFor4Cards(Card[] cards)
