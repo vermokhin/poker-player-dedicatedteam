@@ -28,7 +28,7 @@ namespace Nancy.Simple
 				case 0:
 				case 1:
 				case 2:
-					return _state.minimum_raise;
+					return GetCallBet(_player.stack, _state.current_buy_in, _player.bet);
 				case 3:
 					return SelectBetFor3Cards(cards);
 				case 4:
@@ -69,5 +69,14 @@ namespace Nancy.Simple
 			return 0;
 		}
 
-	}
+        int GetCallBet(int stack, int currentBet, int ourBet)
+        {
+            var needToAdd = currentBet > ourBet ? currentBet - ourBet : 0;
+            if (stack - needToAdd < 300)
+            {
+                return 0;
+            }
+            return needToAdd;
+        }
+    }
 }
