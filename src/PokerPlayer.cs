@@ -11,7 +11,10 @@ namespace Nancy.Simple
 
 		public static int BetRequest(JObject gameState)
 		{
-		    return 80;
+
+			var state = gameState.ToObject<GameState>();
+			var maxBet = state.current_buy_in;
+			return 2 * maxBet;
 		}
 
         public static void ShowDown(JObject gameState)
