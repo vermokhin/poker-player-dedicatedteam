@@ -95,5 +95,13 @@ namespace Nancy.Simple
 		{
 			return 200;
 		}
+
+	    bool IsOnePair(IEnumerable<Card> cards)
+	    {
+	        var distinctCards = cards
+	            .GroupBy(card => card.rank)
+	            .Select(group => group.First());
+	        return distinctCards.Count() < cards.Count();
+	    }
 	}
 }
