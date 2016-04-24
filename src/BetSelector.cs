@@ -13,10 +13,10 @@ namespace Nancy.Simple
 
 		private GameState _state;
 
-	    public BetSelector(Player player, GameState state)
+	    public BetSelector(GameState state)
 	    {
-	        _player = player;
-	        _state = state;
+			_state = state;
+			_player = state.players.FirstOrDefault(p => p.hole_cards.Length > 0); ;
 	    }
 
 	    public int SelectBet()
@@ -50,7 +50,7 @@ namespace Nancy.Simple
 
 			var pairFinder = new PairFinder();
 			//update to  call for < 0.5
-			return pairFinder.GetPairPower(cards) > 0.5 ? (int)(pairFinder.GetPairPower(cards) * 2 * _state.current_buy_in) : GetCallBet(_player.stack, _state.current_buy_in, _player.bet);;
+			return pairFinder.GetPairPower(cards) > 0.5 ? (int)(pairFinder.GetPairPower(cards) * 2 * _state.current_buy_in) : 0;
 		}
 
 		public int SelectBetFor4Cards(Card[] cards)
@@ -61,7 +61,8 @@ namespace Nancy.Simple
 				return (int)(2 * square * _state.current_buy_in);
 			}
 
-			return 0;
+			return SelectBetFor3Cards(cards);
+
 		}
 
 		public int SelectBetFor5Cards(Card[] cards)
@@ -72,7 +73,7 @@ namespace Nancy.Simple
 				return (int)(2 * square * _state.current_buy_in);
 			}
 
-			return 0;
+			return SelectBetFor4Cards(cards);
 		}
 
         int GetCallBet(int stack, int currentBet, int ourBet)
