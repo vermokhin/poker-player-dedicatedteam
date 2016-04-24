@@ -17,42 +17,35 @@ namespace Nancy.Simple
 			var cards = state.community_cards.Concat(player.hole_cards);
 		    var currentBet = state.current_buy_in;
 
-			var doubleBet = state.current_buy_in * 2;
-			var minRaiseBet = state.current_buy_in + state.minimum_raise;
 			if (cards != null)
 			{
-				if (cards.Count() == 5)
+                var sortedCards = GetSortedCard(cards);
+                var rankArray = GetRankArray(sortedCards);
+                var suiteArray = GetSiuteArray(sortedCards);
+                var suiteCount = GetSiuteCount(sortedCards);
+
+                if (cards.Count() == 5)
 				{
-					var sortedCards = GetSortedCard(cards);
-					var rankArray = GetRankArray(sortedCards);
-					var suiteArray = GetSiuteArray(sortedCards);
-					var suiteCount = GetSiuteCount(sortedCards);
 					GetBetFor5Cards(player, suiteCount, rankArray, suiteArray);
 					//use rank api
 				}
 				
 				//get cards combination
-				if (cards.Count() < 3)
+				if (cards.Count() < 4)
 				{
-				    var needToAdd = currentBet > player.bet ? currentBet - player.bet : 0;
-				    if (player.stack - needToAdd < 300)
-				    {
-				        return 0;
-				    }
+				    return GetCallBet(player.stack, currentBet, player.bet);
 				}
 
-				//no pairs in cards
-				if((cards.Select(c=>c.rank).Distinct().Count() == cards.Count()) ||
-					(cards.Select(c=>c.suit).Distinct().Count() == cards.Count()))
-				{
-					return doubleBet > player.stack ? player.stack : doubleBet;
-				}
-				else
-				{
-					return minRaiseBet > player.stack ? player.stack : minRaiseBet;
-				}
-			}
-			return state.minimum_raise;
+			    if (IsQuad(rankArray) != "")
+			    {
+			        return player.stack;
+			    }
+			    else
+			    {
+                    return GetCallBet(player.stack, currentBet, player.bet);
+                }
+            }
+            return state.minimum_raise;
 		}
 
 		private enum HandsType
@@ -154,6 +147,16 @@ namespace Nancy.Simple
 	    bool IsTwoGroups(Dictionary<string, int> suiteCardsCount)
 	    {
 	        return suiteCardsCount.Count == 2;
+	    }
+
+	    int GetCallBet(int stack, int currentBet, int ourBet)
+	    {
+            var needToAdd = currentBet > ourBet ? currentBet - ourBet : 0;
+	        if (stack - needToAdd < 300)
+	        {
+	            return 0;
+	        }
+	        return needToAdd;
 	    }
     }
 }
