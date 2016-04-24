@@ -76,6 +76,7 @@
     <Compile Include="Models\GameState.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="PokerPlayer.cs" />
+    <Compile Include="SimpleStrategy.cs" />
     <Compile Include="Strategy.cs" />
   </ItemGroup>
   <ItemGroup>
