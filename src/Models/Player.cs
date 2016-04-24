@@ -11,7 +11,7 @@ namespace Nancy.Simple.Models
 		public int stack{get; set; }
 		public string status { get; set; }
 		public int bet { get; set; }
-		public object [] hole_cards { get; set; }
+		public Card [] hole_cards { get; set; }
 		public string version { get; set; }
 		public int id { get; set; }
 
