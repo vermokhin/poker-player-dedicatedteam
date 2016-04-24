@@ -20,8 +20,13 @@ namespace Nancy.Simple
 			var minRaiseBet = state.current_buy_in + state.minimum_raise;
 			if (cards != null)
 			{
+				if (cards.Count() == 5)
+				{
+					//use rank api
+				}
+				
 				//get cards combination
-				if(cards.Count() < 3)
+				if (cards.Count() < 3)
 				{
 					return minRaiseBet;
 				}
@@ -36,12 +41,6 @@ namespace Nancy.Simple
 				{
 					return minRaiseBet > player.stack ? player.stack : minRaiseBet;
 				}
-
-				if(cards.Count() == 5)
-				{
-					//use rank api
-				}
-				
 			}
 			return state.minimum_raise;
 		}
@@ -50,6 +49,21 @@ namespace Nancy.Simple
 		{
 			Pair = 0,
 			SameSuit = 1,
+		}
+
+		public Card[] GetSortedCard(Card[] cards)
+		{
+			return cards.OrderBy(c => c.rank).ToArray();
+		}
+
+		public string[] GetRankArray(Card[] cards)
+		{
+			return cards.Select(c=>c.rank).ToArray();
+		}
+
+		public string[] GetSiuteArray(Card[] cards)
+		{
+			return cards.Select(c => c.suit).ToArray();
 		}
 	}
 }
