@@ -5,12 +5,12 @@ namespace Nancy.Simple
 {
 	public static class PokerPlayer
 	{
-		public static readonly string VERSION = "0.0.1";
+		public static readonly string VERSION = "0.0.2";
 
 		public static int BetRequest(JObject gameState)
 		{
 			//TODO: Use this method to return the value You want to bet
-			return new Random().Next(2000, 3000);
+			return new Random().Next(200, 300);
 		}
 
 		public static void ShowDown(JObject gameState)
