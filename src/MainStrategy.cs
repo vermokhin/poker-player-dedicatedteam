@@ -93,6 +93,10 @@ namespace Nancy.Simple
 
 		public int GetBetFor5Cards(Player player, Dictionary<string, int> SuiteCardsCount, string[] RankArray, string[] SuiteArray)
 		{
+            if (IsRoyalFlash(RankArray, SuiteCardsCount) == 12)
+            {
+                return player.stack;
+            }
 			if(RankArray.Distinct().Count() == 3)
 			{
 				return player.stack;
