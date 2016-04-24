@@ -48,24 +48,23 @@ namespace Nancy.Simple
 
 		public int SelectBetFor4Cards(Card[] cards)
 		{
-			// 2 pair
-			var distCards = cards.Select(c => c.RankValue).Distinct();
-			var groups = distCards.GroupBy(d => d.RankId);
-			if (groups.Count() < 3)
+			var square = new SquareFinder().FindSquare(cards);
+			if(square > 0)
 			{
-				foreach (var group in groups)
-				{
-					if (group.Count() > 1 && group.Count() < 3)
-					{
-						return _state.current_buy_in * 2;
-					}
-				}
+				return (int)(2 * square * _state.current_buy_in);
 			}
+
 			return 0;
 		}
 
 		public int SelectBetFor5Cards(Card[] cards)
 		{
+			var square = new SquareFinder().FindSquare(cards);
+			if (square > 0)
+			{
+				return (int)(2 * square * _state.current_buy_in);
+			}
+
 			return 0;
 		}
 
