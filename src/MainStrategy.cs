@@ -106,6 +106,10 @@ namespace Nancy.Simple
 		    {
 		        return player.stack;
 		    }
+		    if (IsTwoGroups(SuiteCardsCount))
+		    {
+		        return player.stack;
+		    }
 			if(RankArray.Distinct().Count() == 3)
 			{
 				return player.stack;
@@ -147,5 +151,9 @@ namespace Nancy.Simple
 	        return "";
 	    }
 
+	    bool IsTwoGroups(Dictionary<string, int> suiteCardsCount)
+	    {
+	        return suiteCardsCount.Count == 2;
+	    }
     }
 }
