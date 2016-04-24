@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="MainModule.cs" />
     <Compile Include="App.cs" />
+    <Compile Include="MainStrategy.cs" />
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\GameState.cs" />
     <Compile Include="Models\Player.cs" />
