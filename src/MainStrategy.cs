@@ -15,6 +15,7 @@ namespace Nancy.Simple
 			var player = state.players.FirstOrDefault(p => p.hole_cards.Length > 0);
 
 			var cards = state.community_cards.Concat(player.hole_cards);
+		    var currentBet = state.current_buy_in;
 
 			var doubleBet = state.current_buy_in * 2;
 			var minRaiseBet = state.current_buy_in + state.minimum_raise;
@@ -33,7 +34,11 @@ namespace Nancy.Simple
 				//get cards combination
 				if (cards.Count() < 3)
 				{
-					return minRaiseBet;
+				    var needToAdd = currentBet > player.bet ? currentBet - player.bet : 0;
+				    if (player.stack - needToAdd < 300)
+				    {
+				        return 0;
+				    }
 				}
 
 				//no pairs in cards
